@@ -4,13 +4,13 @@ import { Sparkles } from "lucide-react";
 
 type AiSummaryProps = {
   summary: string;
-  isLoading: boolean;
+  summaryLoading: boolean;
   onGenerate: () => void;
 };
 
 export default function AiSummary({
   summary,
-  isLoading,
+  summaryLoading,
   onGenerate,
 }: AiSummaryProps) {
   return (
@@ -24,9 +24,9 @@ export default function AiSummary({
 
         <button
           onClick={onGenerate}
-          disabled={isLoading}
+          disabled={summaryLoading}
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50">
-          {isLoading ? "Generating..." : "Generate"}
+          {summaryLoading ? "Generating..." : "Generate"}
         </button>
       </div>
 

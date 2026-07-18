@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { tickets } from "../../data/tickets";
 import { Ticket } from "@/types/ticket";
 import TicketList from "../../components/dashboard/TicketList";
@@ -12,6 +12,14 @@ export default function TicketsPage() {
   const [selectedTicket, setSelectedTicket] = useState<Ticket>(tickets[0]);
   const [loadingSummary, setLoadingSummary] = useState(false);
   const [summary, setSummary] = useState("");
+  const [loadingReply, setLoadingReply] = useState(false);
+  const [reply, setReply] = useState("");
+
+  const handleSelectTicket = (ticket: Ticket) => {
+    setSelectedTicket(ticket);
+    setSummary("");
+    setReply("");
+  };
 
   const handleGenerateSummary = () => {
     setLoadingSummary(true);
@@ -24,9 +32,27 @@ export default function TicketsPage() {
       setLoadingSummary(false);
     }, 1500);
   };
-  useEffect(() => {
-    setSummary("");
-  }, [selectedTicket]);
+  const handleGenerateReply = () => {
+    setLoadingReply(true);
+
+    setTimeout(() => {
+      setReply(`Hello ${selectedTicket.customer},
+
+Thank you for contacting ResolveAI Support.
+
+We understand the issue regarding "${selectedTicket.subject}".
+
+Our team is currently reviewing your request and will provide an update as soon as possible.
+
+We appreciate your patience.
+
+Best regards,
+Support Team`);
+
+      setLoadingReply(false);
+    }, 1800);
+  };
+
   return (
     <>
       <DashboardHeader
@@ -39,12 +65,20 @@ export default function TicketsPage() {
           <TicketList
             tickets={tickets}
             selectedTicket={selectedTicket}
-            onSelect={setSelectedTicket}
+            onSelect={handleSelectTicket}
           />
         </div>
 
         <div className="lg:col-span-2">
-          <TicketDetails ticket={selectedTicket} />
+          <TicketDetails
+            ticket={selectedTicket}
+            summary={summary}
+            summaryLoading={loadingSummary}
+            onGenerateSummary={handleGenerateSummary}
+            reply={reply}
+            loadingReply={loadingReply}
+            onGenerateReply={handleGenerateReply}
+          />
         </div>
       </div>
     </>
