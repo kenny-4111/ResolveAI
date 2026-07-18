@@ -2,7 +2,7 @@
 
 ResolveAI is an AI-powered customer support dashboard designed to help support teams manage customer tickets more efficiently. It provides a modern interface for viewing support requests, generating AI-powered ticket summaries, and creating professional response suggestions to improve response times and customer satisfaction.
 
-**Live:** https://your-app.vercel.app
+**Live:** https://
 
 ##  Screenshots
 
